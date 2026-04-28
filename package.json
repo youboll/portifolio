@@ -1,0 +1,22 @@
+{
+  "name": "pedro-mansan-dev",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.4.1",
+    "@fontsource/geist-mono": "^5.2.5",
+    "@fontsource/geist-sans": "^5.2.5",
+    "@tailwindcss/vite": "^4.1.13",
+    "astro": "^5.13.5",
+    "tailwindcss": "^4.1.13"
+  }
+}

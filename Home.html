@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pedro Mansan — Full Stack Engineer (Python/Django, Vue)</title>
+<meta name="description" content="Full stack engineer. Python/Django, Vue, AWS. 4 years building multi-tenant SaaS. Most recently at Mindz. Available for remote roles." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --fg: #ededed;
+    --fg-2: #8a8a8a;
+    --fg-3: #5a5a5a;
+    --border: #1f1f1f;
+    --accent: #fb7185;
+    --accent-fade: rgba(251, 113, 133, 0.12);
+
+    --max: 640px;
+
+    --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  [data-theme="light"] {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --fg: #171717;
+    --fg-2: #737373;
+    --fg-3: #a3a3a3;
+    --border: #e5e5e5;
+    --accent-fade: rgba(251, 113, 133, 0.18);
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.65;
+    font-feature-settings: "ss01", "cv11";
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  ::selection { background: var(--accent); color: #0a0a0a; }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+    transition: color 120ms ease, text-decoration-color 120ms ease;
+  }
+  a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum";
+  }
+
+  /* Layout shell */
+  .page {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+
+  /* Header */
+  header.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 80px;
+  }
+  header.top .id {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--fg-2);
+    letter-spacing: -0.01em;
+  }
+  header.top .id strong {
+    color: var(--fg);
+    font-weight: 500;
+  }
+  header.top nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 13px;
+  }
+  header.top nav a {
+    text-decoration: none;
+    color: var(--fg-2);
+  }
+  header.top nav a:hover { color: var(--accent); }
+
+  .theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--fg-2);
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: border-color 120ms ease, color 120ms ease;
+  }
+  .theme-toggle:hover { color: var(--fg); border-color: var(--fg-3); }
+  .theme-toggle svg { width: 14px; height: 14px; }
+  [data-theme="dark"] .theme-toggle .sun { display: block; }
+  [data-theme="dark"] .theme-toggle .moon { display: none; }
+  [data-theme="light"] .theme-toggle .sun { display: none; }
+  [data-theme="light"] .theme-toggle .moon { display: block; }
+
+  /* Hero */
+  .hero h1 {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .hero .role {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--fg-2);
+    margin-bottom: 28px;
+  }
+  .hero p {
+    margin: 0 0 18px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--fg);
+    text-wrap: pretty;
+  }
+  .hero p.lede { color: var(--fg); }
+  .hero p.meta-line { color: var(--fg-2); }
+  .hero .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    padding: 4px 10px 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-2);
+  }
+  .hero .status .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-fade);
+  }
+
+  /* Section */
+  section {
+    margin-top: 80px;
+  }
+  section h2 {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg-2);
+    margin: 0 0 28px;
+  }
+
+  /* Work list */
+  .work {
+    display: flex;
+    flex-direction: column;
+  }
+  .work-item {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 20px;
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    align-items: baseline;
+    position: relative;
+  }
+  .work-item:last-child { border-bottom: 1px solid var(--border); }
+  .work-item:hover { color: inherit; }
+  .work-item:hover .work-title { color: var(--accent); }
+  .work-item:hover .arrow { transform: translate(2px, -2px); color: var(--accent); }
+
+  .work-item .year {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-2);
+    font-feature-settings: "tnum";
+    padding-top: 2px;
+  }
+  .work-item .body { min-width: 0; }
+  .work-title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--fg);
+    margin-bottom: 4px;
+    letter-spacing: -0.005em;
+    transition: color 120ms ease;
+  }
+  .work-stack {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-2);
+    margin-bottom: 6px;
+  }
+  .work-blurb {
+    font-size: 14px;
+    color: var(--fg-2);
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+  .work-blurb b {
+    color: var(--fg);
+    font-weight: 500;
+  }
+  .arrow {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--fg-3);
+    align-self: flex-start;
+    padding-top: 2px;
+    transition: transform 160ms ease, color 120ms ease;
+    display: inline-block;
+  }
+
+  .featured-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 1px 6px;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.4;
+  }
+
+  /* Writing list */
+  .writing-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 20px;
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    align-items: baseline;
+  }
+  .writing-item:last-child { border-bottom: 1px solid var(--border); }
+  .writing-item:hover .writing-title { color: var(--accent); }
+  .writing-item:hover .arrow { transform: translate(2px, -2px); color: var(--accent); }
+
+  .writing-item .date {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-2);
+    font-feature-settings: "tnum";
+  }
+  .writing-title {
+    font-size: 14px;
+    color: var(--fg);
+    transition: color 120ms ease;
+    line-height: 1.45;
+  }
+  .writing-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    margin-top: 3px;
+  }
+
+  /* About */
+  .about p {
+    margin: 0 0 16px;
+    color: var(--fg);
+    text-wrap: pretty;
+  }
+  .about p.muted { color: var(--fg-2); }
+
+  /* Footer */
+  footer.bottom {
+    margin-top: 96px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-2);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer.bottom .links {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  footer.bottom a { text-decoration: none; color: var(--fg-2); }
+  footer.bottom a:hover { color: var(--accent); }
+
+  /* Inline link in prose: subtle underline */
+  .hero a, .about a {
+    color: var(--fg);
+    text-decoration: underline;
+    text-decoration-color: var(--fg-3);
+    text-underline-offset: 3px;
+  }
+  .hero a:hover, .about a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  /* Mobile */
+  @media (max-width: 520px) {
+    .page { padding: 40px 20px 64px; }
+    header.top { margin-bottom: 56px; }
+    section { margin-top: 64px; }
+    .work-item { grid-template-columns: 48px 1fr 16px; gap: 14px; }
+    .writing-item { grid-template-columns: 80px 1fr 16px; gap: 14px; }
+    footer.bottom { margin-top: 72px; }
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+
+  <header class="top">
+    <div class="id"><strong>Pedro Mansan</strong> <span style="color: var(--fg-3);">/ </span>full stack engineer</div>
+    <nav>
+      <a href="#work">work</a>
+      <a href="#writing">writing</a>
+      <a href="#about">about</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color scheme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <section class="hero" style="margin-top: 0;">
+    <h1>Pedro Mansan</h1>
+    <div class="role">Full stack engineer · Brazil</div>
+
+    <p class="lede">Python/Django on the backend, Vue on the frontend, AWS in between. The last four years I've been building multi-tenant SaaS — OAuth2, ABAC/RBAC, and a fair amount of code that had to keep standing with 50k concurrent users.</p>
+
+    <p>Most recently at <a href="#work">Mindz (2022–2026)</a>, where I led the refactor of a 150-page legacy course platform with a swarm of 40 Claude Code agents in a week.</p>
+
+    <p class="meta-line">Available for remote roles with US/EU teams. Write to <a href="/cdn-cgi/l/email-protection#50203534223f103d313e23313e7e343526"><span class="__cf_email__" data-cfemail="43332627312c032e222d30222d6d272635">[email&#160;protected]</span></a>.</p>
+
+    <div class="status" style="margin-top: 20px;">
+      <span class="dot"></span>
+      <span>Available since April 2026</span>
+    </div>
+  </section>
+
+  <section id="work">
+    <h2>Selected work</h2>
+    <div class="work">
+
+      <a class="work-item" href="/work/mindz-agent-swarm">
+        <span class="year mono">2026</span>
+        <div class="body">
+          <div class="work-title">
+            Mindz · Agent swarm refactor
+            <span class="featured-tag">case study</span>
+          </div>
+          <div class="work-stack">Django · Vue · Claude Code · 40 agents</div>
+          <div class="work-blurb"><b>40 agents · 150 pages · 6 days · production.</b> Parallelized a four-year backlog of template-to-ViewModel migrations. The unglamorous parts: hierarchical CLAUDE.md, worktree-per-agent, and the 18% of PRs that needed human rewrites.</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="work-item" href="/work/mindz-abac">
+        <span class="year mono">2024</span>
+        <div class="body">
+          <div class="work-title">Mindz · ABAC authorization layer</div>
+          <div class="work-stack">Django · PostgreSQL · OAuth2 PKCE</div>
+          <div class="work-blurb">Replaced a flat role table with attribute-based access control across 12 tenants. Cut authorization queries from <b>~280ms p95 to ~45ms</b> by collapsing the policy check into a single CTE. Trade-off documented inside.</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="work-item" href="/work/multi-tenant-billing">
+        <span class="year mono">2023</span>
+        <div class="body">
+          <div class="work-title">Multi-tenant billing pipeline</div>
+          <div class="work-stack">Django · Celery · Redis · Stripe</div>
+          <div class="work-blurb">Idempotent billing job for 12k subscriptions across timezones. Moved from cron + retries to Celery beat with row-level locking after a partial double-charge incident. Post-mortem inside.</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="work-item" href="/work/sso-saml-iframe">
+        <span class="year mono">2022</span>
+        <div class="body">
+          <div class="work-title">SSO for white-label iframe embeds</div>
+          <div class="work-stack">Django · SAML · OAuth2</div>
+          <div class="work-blurb">Three IdPs, one embedded course player, zero CSRF surface. Why session cookies stopped working and what replaced them.</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+
+    </div>
+  </section>
+
+  <section id="writing">
+    <h2>Writing</h2>
+    <div class="work">
+
+      <a class="writing-item" href="/writing/40-agents-150-pages">
+        <span class="date mono">Apr 22, 2026</span>
+        <div class="body">
+          <div class="writing-title">Refactoring 150 pages with 40 Claude Code agents in a week</div>
+          <div class="writing-meta">12 min read · case study</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="writing-item" href="/writing/django-row-level-security">
+        <span class="date mono">Mar 08, 2026</span>
+        <div class="body">
+          <div class="writing-title">Multi-tenancy in Django: what nobody tells you about row-level security</div>
+          <div class="writing-meta">8 min read</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="writing-item" href="/writing/abac-vs-rbac">
+        <span class="date mono">Feb 14, 2026</span>
+        <div class="body">
+          <div class="writing-title">ABAC vs RBAC: I stopped explaining this wrong in interviews</div>
+          <div class="writing-meta">6 min read</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>About</h2>
+    <p>I started in PHP back in 2019, moved to Python/Django in 2021, and never went back. Most of my work since then has been multi-tenant SaaS — the kind of system where one bad query in the auth layer takes down a thousand customers at once. I like problems that involve database internals, permission models, and pipelines that have to be idempotent under partial failure.</p>
+    <p class="muted">Based in Brazil. Comfortable with US/EU business hours. Currently exploring full-time remote roles — write to <a href="/cdn-cgi/l/email-protection#8cfce9e8fee3cce1ede2ffede2a2e8e9fa"><span class="__cf_email__" data-cfemail="3a4a5f5e48557a575b54495b54145e5f4c">[email&#160;protected]</span></a>.</p>
+  </section>
+
+  <footer class="bottom">
+    <div>© 2026 Pedro Mansan</div>
+    <div class="links">
+      <a href="/cdn-cgi/l/email-protection#42322726302d022f232c31232c6c262734">email</a>
+      <a href="https://github.com/pmansan" target="_blank" rel="noopener">github ↗</a>
+      <a href="https://linkedin.com/in/pedromansan" target="_blank" rel="noopener">linkedin ↗</a>
+      <a href="/rss.xml">rss</a>
+      <a href="https://github.com/pmansan/pedro.mansan.dev" target="_blank" rel="noopener">source ↗</a>
+    </div>
+  </footer>
+
+</main>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Theme toggle: respect prefers-color-scheme on first load, then localStorage.
+  (function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = stored || (prefersDark ? 'dark' : 'light');
+    root.setAttribute('data-theme', initial);
+
+    const btn = document.getElementById('themeToggle');
+    btn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
+</body>
+</html>
