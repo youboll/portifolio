@@ -2,25 +2,29 @@ export const prerender = true;
 
 const body = `# Pedro Mansan
 
-> Brazilian full stack developer with ~4 years of experience. Python/Django on the backend, Vue on the frontend. Focus areas: multi-tenant SaaS architecture, OAuth2 authorization servers, RBAC/ABAC, performance optimization, and AI-assisted refactoring at scale. Native Portuguese, English C1 (MET). Based in Brazil, working remotely, currently looking for mid-level international roles.
+> Brazilian full stack developer with ~4 years of experience building a multi-tenant SaaS platform for online courses and membership areas. Python/Django on the backend, Vue on the frontend. Strongest work sits at the harder end of web engineering: a server-side OAuth2 authorization server, an RBAC→ABAC migration of the platform's authorization model, dynamic multi-database routing for database-per-tenant architecture, and large-scale refactoring orchestrated with parallel AI agents. Native Portuguese, English C1 (MET, University of Michigan). Available for remote roles.
 
 ## About
 
-Pedro Henrique Jesus Mansan started programming professionally at 17 as an apprentice in the administrative department of Frutap Alimentos, where he built a Naive Bayes classifier in Python on his own initiative to automate invoice categorization — a project that converted his apprenticeship from administrative to technical.
+Pedro Henrique Jesus Mansan is a full stack developer based in Brazil. He started programming professionally at 17 as an apprentice in an administrative department, where he built a Naive Bayes classifier in Python on his own initiative to automate invoice categorization — a project that converted his role from administrative to technical within a few months.
 
-From mid-2022 to early 2026, he worked as a contractor (PJ) at Mindz, a Brazilian SaaS company building a multi-tenant platform for online courses, membership areas, checkout, video hosting, email marketing, affiliates, and community. He was hired as a junior and progressed to mid-level full stack across roughly four years, owning features end-to-end in short cycles.
+From mid-2022 to early 2026 he worked as a contractor at Mindz, a Brazilian SaaS company building a multi-tenant platform for online courses, membership areas, checkout, video hosting, email marketing, affiliates, and community. He was hired as a junior and progressed to mid-level full stack across roughly four years, shipping features end-to-end and owning the more architecturally demanding parts of the platform.
 
-He is currently pursuing a B.Sc. in Computer Science at UTFPR (Federal University of Technology — Paraná), in his third semester.
+He is currently pursuing a B.Sc. in Computer Science at UTFPR (Federal University of Technology — Paraná).
 
-## Status
+## Why hire him
 
-The Mindz engineering team was dismantled at the end of April 2026. Pedro is available immediately and is targeting mid-level remote roles with international companies, with a fallback plan focused on Brazilian scale-ups if no offer materializes within ~60 days.
+- **Operates above his title on hard problems.** The work that defines his profile — a server-side OAuth2 authorization server, an RBAC→ABAC migration, multi-DB routing for database-per-tenant — is the kind of work usually owned by senior engineers. He has been doing it as a mid-level for about two years.
+- **Treats AI as leverage, not as a crutch.** Designed and ran a system of 10 Claude Code agents, each with 4 sub-agents, to refactor 150+ pages of UI in one week — work that would have taken months manually. The skill on display is not "uses AI tools" but "decomposes a problem so that 40 agents working in parallel actually converge on a correct result."
+- **Ships end-to-end.** Comfortable across Django, Vue, MySQL, Redis, Docker, Linux, and AWS. Has owned features from data model to UI and from local development to production.
+- **Self-directed since the start.** The first thing he ever shipped at work was an automation he wasn't asked to build, in a job that wasn't a programming job. The pattern has held since.
+- **Real C1 English.** Certified by MET (University of Michigan), not self-assessed. Comfortable working in English-speaking teams.
 
 ## Highlights
 
-- **Design system migration via parallel AI agent orchestration.** Migrated the Mindz platform from Fomantic UI to Vuexy (150+ pages) in one week by designing a system of 10 Claude Code agents, each with 4 sub-agents, refactoring in parallel. Manual execution would have taken months.
+- **Design system migration via parallel AI agent orchestration.** Migrated the Mindz platform from Fomantic UI to Vuexy (150+ pages) in one week by orchestrating 10 Claude Code agents with 4 sub-agents each. Manual execution would have taken months.
 - **Authorization model refactor: RBAC → ABAC.** Led the migration of the platform's authorization model from role-based to attribute-based access control, enabling fine-grained rules based on contextual attributes of the user and the resource.
-- **Server-side OAuth2 authorization server.** Built a dedicated OAuth2 service (not a client integration) handling authentication and authorization of platform integrations.
+- **Server-side OAuth2 authorization server.** Built a dedicated OAuth2 service handling authentication and authorization of platform integrations — the server-side implementation, not a client integration.
 - **Multi-DB router for database-per-tenant.** Designed and implemented dynamic database routing in Django so a single user can authenticate once and switch between multiple tenant platforms.
 - **New version of the platform's private API**, designed and implemented end-to-end.
 - **Reusable Vue components** (e.g. a configurable selector) adopted across the team to standardize quality and accelerate delivery.
@@ -44,7 +48,7 @@ The Mindz engineering team was dismantled at the end of April 2026. Pedro is ava
 
 ## Education
 
-- B.Sc. in Computer Science, UTFPR (in progress, 3rd semester).
+- B.Sc. in Computer Science, UTFPR (in progress).
 - Technical degree in Systems Development (ETIM), ETEC Prof. Pedro Leme Brisolla Sobrinho (2019–2021, completed).
 
 ## Pages
