@@ -1,0 +1,27 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+
+interface Props {
+  current?: string;
+}
+
+const { current = "" } = Astro.props;
+
+const links = [
+  { href: "/work/", label: "work", key: "work" },
+  { href: "/writing/", label: "writing", key: "writing" },
+  { href: "/uses/", label: "uses", key: "uses" },
+  { href: "/now/", label: "now", key: "now" },
+];
+---
+<header class="top">
+  <div class="id">
+    <a href="/"><strong>Pedro Mansan</strong></a> <span style="color: var(--fg-3);">/ </span>full stack engineer
+  </div>
+  <nav>
+    {links.map((link) => (
+      <a href={link.href} class={current === link.key ? "active" : ""}>{link.label}</a>
+    ))}
+    <ThemeToggle />
+  </nav>
+</header>
