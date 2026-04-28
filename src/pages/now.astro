@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const lastUpdated = new Date();
+const fmt = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" });
+---
+<Layout
+  title="Now — Pedro Mansan"
+  description="What I'm focused on right now."
+  current="now"
+>
+  <section class="hero" style="margin-top: 0;">
+    <h1>Now</h1>
+    <div class="role">A snapshot of what I'm doing this month</div>
+  </section>
+
+  <section class="prose" style="margin-top: 56px;">
+    <p>
+      I'm in the third semester of Computer Science at UTFPR, in Marechal Cândido
+      Rondon, Paraná. Most evenings end with a problem set or a system design
+      exercise.
+    </p>
+
+    <p>
+      Looking for a full stack mid-level role, remote, US/EU teams. The kind of
+      product where the interesting problems are in the database and the auth
+      layer rather than the brand color.
+    </p>
+
+    <p>
+      Writing up a few of the systems I built at Mindz over the last four years —
+      see <a href="/writing/">/writing</a> for what's in progress. Refining spoken
+      English for technical interviews on the side.
+    </p>
+
+    <p class="muted" style="font-family: var(--font-mono); font-size: 12px; margin-top: 32px;">
+      Last updated: {fmt.format(lastUpdated)}
+    </p>
+
+    <p class="muted" style="font-family: var(--font-mono); font-size: 12px;">
+      Inspired by <a href="https://nownownow.com" target="_blank" rel="noopener">nownownow.com</a>.
+    </p>
+  </section>
+</Layout>

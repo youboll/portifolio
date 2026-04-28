@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const isProd = import.meta.env.PROD;
+const posts = (await getCollection("blog", ({ data }) => (isProd ? !data.draft : true)))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const dateFmt = new Intl.DateTimeFormat("en-US", { month: "short", day: "2-digit", year: "numeric" });
+---
+<Layout
+  title="Writing — Pedro Mansan"
+  description="Long-form notes on Django, multi-tenancy, authorization, and orchestrating AI agents at scale."
+  current="writing"
+>
+  <section class="hero" style="margin-top: 0;">
+    <h1>Writing</h1>
+    <div class="role">Notes on the systems I've built</div>
+  </section>
+
+  <section style="margin-top: 56px;">
+    <div class="work">
+      {posts.map((post) => (
+        <a class="writing-item" href={`/writing/${post.id}/`}>
+          <span class="date mono">{dateFmt.format(post.data.pubDate)}</span>
+          <div class="body">
+            <div class="writing-title">
+              {post.data.title}
+              {post.data.draft && <span class="draft-tag">draft</span>}
+            </div>
+            <div class="writing-meta">
+              {post.data.readingTime ?? "—"}{post.data.tag ? ` · ${post.data.tag}` : ""}
+            </div>
+          </div>
+          <span class="arrow">↗</span>
+        </a>
+      ))}
+    </div>
+
+    <p style="margin-top: 24px; font-size: 12px; color: var(--fg-3); font-family: var(--font-mono);">
+      <a href="/rss.xml">rss feed →</a>
+    </p>
+  </section>
+</Layout>

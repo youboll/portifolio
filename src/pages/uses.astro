@@ -1,0 +1,89 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const groups = [
+  {
+    title: "Editor & terminal",
+    items: [
+      { label: "Editor", value: "VS Code", todo: false },
+      { label: "Terminal", value: "<!-- TODO: confirmar terminal preferido -->", todo: true },
+      { label: "Shell", value: "bash", todo: false },
+      { label: "OS", value: "Linux (daily driver)", todo: false },
+    ],
+  },
+  {
+    title: "Languages & frameworks",
+    items: [
+      { label: "Backend", value: "Python · Django · DRF", todo: false },
+      { label: "Frontend", value: "Vue · TypeScript · JavaScript", todo: false },
+      { label: "Templating", value: "Jinja-style Django templates", todo: false },
+    ],
+  },
+  {
+    title: "AI tooling",
+    items: [
+      { label: "Primary", value: "Claude Code (parallel agent orchestration)", todo: false },
+      { label: "Other", value: "tried plenty, kept Claude Code", todo: false },
+    ],
+  },
+  {
+    title: "Infra & databases",
+    items: [
+      { label: "Containers", value: "Docker", todo: false },
+      { label: "Database", value: "MySQL", todo: false },
+      { label: "Cache / queue", value: "Redis", todo: false },
+      { label: "Cloud", value: "AWS (RDS, EC2)", todo: false },
+    ],
+  },
+  {
+    title: "Other tools",
+    items: [
+      { label: "Version control", value: "Git", todo: false },
+      { label: "Automation", value: "n8n (with custom nodes)", todo: false },
+    ],
+  },
+  {
+    title: "Hardware",
+    items: [
+      { label: "Laptop", value: "<!-- TODO: preencher modelo -->", todo: true },
+      { label: "Monitor", value: "<!-- TODO: preencher -->", todo: true },
+      { label: "Keyboard", value: "<!-- TODO: preencher -->", todo: true },
+    ],
+  },
+];
+---
+<Layout
+  title="Uses — Pedro Mansan"
+  description="The tools I actually use day to day for shipping multi-tenant SaaS."
+  current="uses"
+>
+  <section class="hero" style="margin-top: 0;">
+    <h1>Uses</h1>
+    <div class="role">What I actually use, day to day</div>
+  </section>
+
+  <section style="margin-top: 56px;">
+    <p style="font-size: 14px; color: var(--fg-2); margin-bottom: 36px; max-width: 60ch;">
+      Inspired by <a href="https://usesthis.com" target="_blank" rel="noopener" style="color: var(--fg);">usesthis.com</a>.
+      Only things I reach for at least once a week.
+    </p>
+
+    {groups.map((group) => (
+      <div class="uses-group">
+        <h3>{group.title}</h3>
+        <ul class="uses-list">
+          {group.items.map((item) => (
+            <li>
+              <span class="label">{item.label}</span>
+              {item.todo ? (
+                <span class="todo">{item.value}</span>
+              ) : (
+                <span class="value">{item.value}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </section>
+</Layout>
