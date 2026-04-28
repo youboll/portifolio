@@ -9,6 +9,7 @@ Personal site. Astro + Tailwind, no JS framework, no CDN fonts, no analytics.
 - [Geist Sans + Geist Mono](https://vercel.com/font), self-hosted via `@fontsource`
 - Markdown content collections for `/writing`
 - `@astrojs/rss` + `@astrojs/sitemap`
+- `/llms.txt` — concise hiring pitch for AI agents reading on behalf of a recruiter
 - Deploy target: Cloudflare Pages (static `dist/`)
 
 ## Run locally
