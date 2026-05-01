@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import { getLocale, t, dateLocale, localizePath } from "../../i18n/ui";
+
+const locale = getLocale(Astro.currentLocale);
+const isProd = import.meta.env.PROD;
+const localePrefix = `${locale}/`;
+const posts = (await getCollection("blog", ({ id, data }) =>
+  id.startsWith(localePrefix) && (isProd ? !data.draft : true)
+)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const dateFmt = new Intl.DateTimeFormat(dateLocale(locale), { month: "short", day: "2-digit", year: "numeric" });
+const note = t(locale, "writing.note");
+---
+<section class="hero" style="margin-top: 0;">
+  <h1>{t(locale, "writing.heading")}</h1>
+  <div class="role">{t(locale, "writing.role")}</div>
+</section>
+
+<section style="margin-top: 56px;">
+  {note && (
+    <p style="font-size: 13px; color: var(--fg-2); margin-bottom: 24px; max-width: 60ch;">
+      {note}
+    </p>
+  )}
+
+  <div class="work">
+    {posts.map((post) => (
+      <a class="writing-item" href={localizePath(`/writing/${post.id.slice(localePrefix.length)}/`, locale)}>
+        <span class="date mono">{dateFmt.format(post.data.pubDate)}</span>
+        <div class="body">
+          <div class="writing-title">
+            {post.data.title}
+            {post.data.draft && <span class="draft-tag">{t(locale, "writing.draft")}</span>}
+          </div>
+          <div class="writing-meta">
+            {post.data.readingTime ?? "—"}{post.data.tag ? ` · ${post.data.tag}` : ""}
+          </div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+    ))}
+  </div>
+
+  <p style="margin-top: 24px; font-size: 12px; color: var(--fg-3); font-family: var(--font-mono);">
+    <a href="/rss.xml">{t(locale, "writing.rss")}</a>
+  </p>
+</section>

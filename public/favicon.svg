@@ -1,4 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#0a0a0a"/>
-  <text x="16" y="22" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" font-weight="600" fill="#fb7185">p</text>
+  <style>
+    .bg { fill: #fafafa; }
+    .fg { stroke: #0a0a0a; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0a0a0a; }
+      .fg { stroke: #fafafa; }
+    }
+  </style>
+  <rect class="bg" width="32" height="32" rx="6"/>
+  <path class="fg" d="M 7 24 L 7 8 L 16 21 L 25 8 L 25 24"
+        stroke-width="3.5" fill="none"
+        stroke-linejoin="miter" stroke-linecap="butt"/>
 </svg>

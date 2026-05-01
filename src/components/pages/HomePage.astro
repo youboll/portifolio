@@ -1,0 +1,155 @@
+---
+import { getCollection } from "astro:content";
+import { getLocale, t, dateLocale, localizePath } from "../../i18n/ui";
+
+const locale = getLocale(Astro.currentLocale);
+const isProd = import.meta.env.PROD;
+const localePrefix = `${locale}/`;
+const posts = (await getCollection("blog", ({ id, data }) =>
+  id.startsWith(localePrefix) && (isProd ? !data.draft : true)
+))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const dateFmt = new Intl.DateTimeFormat(dateLocale(locale), { month: "short", day: "2-digit", year: "numeric" });
+
+const workEn = [
+  {
+    href: "/work/#agent-swarm",
+    year: "2026",
+    title: "Mindz · Agent swarm refactor",
+    featured: true,
+    stack: "Django · Vue · Claude Code · 40 agents",
+    blurb:
+      "<b>40 agents · 150 pages · 6 days · production.</b> Orchestrated ten lead agents with four sub-agents each to migrate the Fomantic UI templates to Vuexy components — a backlog the team had been postponing for years.",
+  },
+  {
+    href: "/work/#abac",
+    year: "2024",
+    title: "Mindz · ABAC authorization layer",
+    stack: "Django · MySQL · OAuth2 PKCE",
+    blurb:
+      "Replaced the role table with attribute-based access control across the platform. Trade-offs documented inside.",
+  },
+  {
+    href: "/work/#multi-db-router",
+    year: "2023",
+    title: "Multi-DB router for tenant isolation",
+    stack: "Django · MySQL · Redis",
+    blurb:
+      "Database-per-tenant routing with single sign-on across platforms — log in once, switch context without re-auth.",
+  },
+  {
+    href: "/work/#oauth2-server",
+    year: "2022",
+    title: "Server-side OAuth2 issuer",
+    stack: "Django · OAuth2 · iframe SSO",
+    blurb:
+      "Custom OAuth2 server for white-labeled course player embeds, with rotating client credentials and full token audit.",
+  },
+];
+
+const workPt = [
+  {
+    href: "/work/#agent-swarm",
+    year: "2026",
+    title: "Mindz · Refactor com enxame de agentes",
+    featured: true,
+    stack: "Django · Vue · Claude Code · 40 agentes",
+    blurb:
+      "<b>40 agentes · 150 páginas · 6 dias · produção.</b> Orquestrei dez agentes líderes, cada um com quatro sub-agentes, para migrar os templates Fomantic UI para componentes Vuexy — um backlog que o time vinha adiando havia anos.",
+  },
+  {
+    href: "/work/#abac",
+    year: "2024",
+    title: "Mindz · Camada de autorização ABAC",
+    stack: "Django · MySQL · OAuth2 PKCE",
+    blurb:
+      "Substituí a tabela de papéis por controle de acesso baseado em atributos em toda a plataforma. Trade-offs documentados no detalhe.",
+  },
+  {
+    href: "/work/#multi-db-router",
+    year: "2023",
+    title: "Roteador multi-DB para isolamento de tenant",
+    stack: "Django · MySQL · Redis",
+    blurb:
+      "Roteamento de banco por tenant com single sign-on entre plataformas — entre uma vez e troque de contexto sem reautenticar.",
+  },
+  {
+    href: "/work/#oauth2-server",
+    year: "2022",
+    title: "Servidor OAuth2 server-side",
+    stack: "Django · OAuth2 · iframe SSO",
+    blurb:
+      "Servidor OAuth2 customizado para embeds white-label do player de cursos, com rotação de credenciais e auditoria completa de tokens.",
+  },
+];
+
+const work = locale === "pt-br" ? workPt : workEn;
+const workHref = (path: string) => localizePath(path.split("#")[0], locale) + (path.includes("#") ? "#" + path.split("#")[1] : "");
+const writingHref = (slug: string) => localizePath(`/writing/${slug}/`, locale);
+const writingIndexHref = localizePath("/writing/", locale);
+---
+<section class="hero" style="margin-top: 0;">
+  <h1>Pedro Mansan</h1>
+  <div class="role">{t(locale, "home.role")}</div>
+
+  <p class="lede">{t(locale, "home.lede")}</p>
+
+  <p>
+    {t(locale, "home.recent.before")}<a href={localizePath("/work/", locale)}>{t(locale, "home.recent.linkLabel")}</a>{t(locale, "home.recent.after")}
+  </p>
+
+  <p class="meta-line">
+    {t(locale, "home.cta.before")}<a href="mailto:pedro.ciclobrasil@gmail.com">pedro.ciclobrasil@gmail.com</a>{t(locale, "home.cta.after")}
+  </p>
+
+  <div class="status" style="margin-top: 20px;">
+    <span class="dot"></span>
+    <span>{t(locale, "home.status")}</span>
+  </div>
+</section>
+
+<section id="work">
+  <h2>{t(locale, "home.section.work")}</h2>
+  <div class="work">
+    {work.map((item) => (
+      <a class="work-item" href={workHref(item.href)}>
+        <span class="year mono">{item.year}</span>
+        <div class="body">
+          <div class="work-title">
+            {item.title}
+            {item.featured && <span class="featured-tag">{t(locale, "home.work.featuredTag")}</span>}
+          </div>
+          <div class="work-stack">{item.stack}</div>
+          <div class="work-blurb" set:html={item.blurb} />
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<section id="writing">
+  <h2>{t(locale, "home.section.writing")}</h2>
+  <div class="work">
+    {posts.map((post) => (
+      <a class="writing-item" href={writingHref(post.id.slice(localePrefix.length))}>
+        <span class="date mono">{dateFmt.format(post.data.pubDate)}</span>
+        <div class="body">
+          <div class="writing-title">
+            {post.data.title}
+            {post.data.draft && <span class="draft-tag">{t(locale, "writing.draft")}</span>}
+          </div>
+          <div class="writing-meta">
+            {post.data.readingTime ?? "—"}{post.data.tag ? ` · ${post.data.tag}` : ""}
+          </div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+    ))}
+  </div>
+  <p style="margin-top: 16px; font-size: 13px; color: var(--fg-2);">
+    <a href={writingIndexHref}>{t(locale, "home.section.writing.all")}</a>
+  </p>
+</section>

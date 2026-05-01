@@ -1,0 +1,137 @@
+---
+import { getLocale, t } from "../../i18n/ui";
+
+const locale = getLocale(Astro.currentLocale);
+
+const groupsEn = [
+  {
+    title: "Editor & terminal",
+    items: [
+      { label: "Editor", value: "VS Code", todo: false },
+      { label: "Terminal", value: "<!-- TODO: confirmar terminal preferido -->", todo: true },
+      { label: "Shell", value: "bash", todo: false },
+      { label: "OS", value: "Linux (daily driver)", todo: false },
+    ],
+  },
+  {
+    title: "Languages & frameworks",
+    items: [
+      { label: "Backend", value: "Python · Django · DRF", todo: false },
+      { label: "Frontend", value: "Vue · TypeScript · JavaScript", todo: false },
+      { label: "Templating", value: "Jinja-style Django templates", todo: false },
+    ],
+  },
+  {
+    title: "AI tooling",
+    items: [
+      { label: "Primary", value: "Claude Code (parallel agent orchestration)", todo: false },
+      { label: "Other", value: "tried plenty, kept Claude Code", todo: false },
+    ],
+  },
+  {
+    title: "Infra & databases",
+    items: [
+      { label: "Containers", value: "Docker", todo: false },
+      { label: "Database", value: "MySQL", todo: false },
+      { label: "Cache / queue", value: "Redis", todo: false },
+      { label: "Cloud", value: "AWS (RDS, EC2)", todo: false },
+    ],
+  },
+  {
+    title: "Other tools",
+    items: [
+      { label: "Version control", value: "Git", todo: false },
+      { label: "Automation", value: "n8n (with custom nodes)", todo: false },
+    ],
+  },
+  {
+    title: "Hardware",
+    items: [
+      { label: "Laptop", value: "<!-- TODO: preencher modelo -->", todo: true },
+      { label: "Monitor", value: "<!-- TODO: preencher -->", todo: true },
+      { label: "Keyboard", value: "<!-- TODO: preencher -->", todo: true },
+    ],
+  },
+];
+
+const groupsPt = [
+  {
+    title: "Editor & terminal",
+    items: [
+      { label: "Editor", value: "VS Code", todo: false },
+      { label: "Terminal", value: "<!-- TODO: confirmar terminal preferido -->", todo: true },
+      { label: "Shell", value: "bash", todo: false },
+      { label: "SO", value: "Linux (uso diário)", todo: false },
+    ],
+  },
+  {
+    title: "Linguagens & frameworks",
+    items: [
+      { label: "Backend", value: "Python · Django · DRF", todo: false },
+      { label: "Frontend", value: "Vue · TypeScript · JavaScript", todo: false },
+      { label: "Templates", value: "Templates Django estilo Jinja", todo: false },
+    ],
+  },
+  {
+    title: "Ferramentas de IA",
+    items: [
+      { label: "Principal", value: "Claude Code (orquestração de agentes em paralelo)", todo: false },
+      { label: "Outros", value: "testei vários, fiquei com o Claude Code", todo: false },
+    ],
+  },
+  {
+    title: "Infra & bancos de dados",
+    items: [
+      { label: "Containers", value: "Docker", todo: false },
+      { label: "Banco", value: "MySQL", todo: false },
+      { label: "Cache / fila", value: "Redis", todo: false },
+      { label: "Cloud", value: "AWS (RDS, EC2)", todo: false },
+    ],
+  },
+  {
+    title: "Outras ferramentas",
+    items: [
+      { label: "Controle de versão", value: "Git", todo: false },
+      { label: "Automação", value: "n8n (com nós customizados)", todo: false },
+    ],
+  },
+  {
+    title: "Hardware",
+    items: [
+      { label: "Notebook", value: "<!-- TODO: preencher modelo -->", todo: true },
+      { label: "Monitor", value: "<!-- TODO: preencher -->", todo: true },
+      { label: "Teclado", value: "<!-- TODO: preencher -->", todo: true },
+    ],
+  },
+];
+
+const groups = locale === "pt-br" ? groupsPt : groupsEn;
+---
+<section class="hero" style="margin-top: 0;">
+  <h1>{t(locale, "uses.heading")}</h1>
+  <div class="role">{t(locale, "uses.role")}</div>
+</section>
+
+<section style="margin-top: 56px;">
+  <p style="font-size: 14px; color: var(--fg-2); margin-bottom: 36px; max-width: 60ch;">
+    {t(locale, "uses.intro.before")}<a href="https://usesthis.com" target="_blank" rel="noopener" style="color: var(--fg);">usesthis.com</a>{t(locale, "uses.intro.after")}
+  </p>
+
+  {groups.map((group) => (
+    <div class="uses-group">
+      <h3>{group.title}</h3>
+      <ul class="uses-list">
+        {group.items.map((item) => (
+          <li>
+            <span class="label">{item.label}</span>
+            {item.todo ? (
+              <span class="todo">{item.value}</span>
+            ) : (
+              <span class="value">{item.value}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</section>

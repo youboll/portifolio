@@ -1,0 +1,18 @@
+---
+import { getLocale, t, localizePath } from "../i18n/ui";
+
+const locale = getLocale(Astro.currentLocale);
+const otherLocale = locale === "en" ? "pt-br" : "en";
+const otherHref = localizePath(Astro.url.pathname, otherLocale);
+---
+<a
+  class="lang-toggle mono"
+  href={otherHref}
+  hreflang={otherLocale === "pt-br" ? "pt-BR" : "en"}
+  aria-label={t(locale, "lang.toggle.aria")}
+  title={t(locale, "lang.toggle.aria")}
+>
+  <span class="lang-current">{t(locale, "lang.label")}</span>
+  <span class="lang-sep">/</span>
+  <span class="lang-other">{t(locale, "lang.other")}</span>
+</a>

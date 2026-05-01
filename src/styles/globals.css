@@ -155,6 +155,24 @@ header.top nav a.active { color: var(--fg); }
 [data-theme="light"] .theme-toggle .sun { display: none; }
 [data-theme="light"] .theme-toggle .moon { display: block; }
 
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--fg-2);
+  text-decoration: none;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+.lang-toggle:hover { color: var(--fg); border-color: var(--fg-3); }
+.lang-toggle .lang-current { color: var(--fg); }
+.lang-toggle .lang-sep { color: var(--fg-3); }
+
 /* Hero */
 .hero h1 {
   font-size: 15px;

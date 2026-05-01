@@ -1,12 +1,15 @@
 ---
+import { getLocale, t } from "../i18n/ui";
+
+const locale = getLocale(Astro.currentLocale);
 const year = new Date().getFullYear();
 ---
 <footer class="bottom">
   <div>© {year} Pedro Mansan</div>
   <div class="links">
-    <a href="mailto:pedro.ciclobrasil@gmail.com">email</a>
-    <a href="https://github.com/youboll" target="_blank" rel="noopener">github ↗</a>
-    <a href="https://linkedin.com/in/pedro-henrique-4047891b5" target="_blank" rel="noopener">linkedin ↗</a>
-    <a href="/rss.xml">rss</a>
+    <a href="mailto:pedro.ciclobrasil@gmail.com">{t(locale, "footer.email")}</a>
+    <a href="https://github.com/youboll" target="_blank" rel="noopener">{t(locale, "footer.github")}</a>
+    <a href="https://linkedin.com/in/pedro-henrique-jesus-mansan-4047891b5" target="_blank" rel="noopener">{t(locale, "footer.linkedin")}</a>
+    <a href="/rss.xml">{t(locale, "footer.rss")}</a>
   </div>
 </footer>

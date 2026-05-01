@@ -1,27 +1,33 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import LanguageToggle from "./LanguageToggle.astro";
+import { getLocale, t, localizePath } from "../i18n/ui";
 
 interface Props {
   current?: string;
 }
 
 const { current = "" } = Astro.props;
+const locale = getLocale(Astro.currentLocale);
 
 const links = [
-  { href: "/work/", label: "work", key: "work" },
-  { href: "/writing/", label: "writing", key: "writing" },
-  { href: "/uses/", label: "uses", key: "uses" },
-  { href: "/now/", label: "now", key: "now" },
-];
+  { path: "/work/", labelKey: "nav.work", key: "work" },
+  { path: "/writing/", labelKey: "nav.writing", key: "writing" },
+  { path: "/uses/", labelKey: "nav.uses", key: "uses" },
+  { path: "/now/", labelKey: "nav.now", key: "now" },
+] as const;
+
+const homeHref = locale === "en" ? "/" : "/pt-br/";
 ---
 <header class="top">
   <div class="id">
-    <a href="/"><strong>Pedro Mansan</strong></a> <span style="color: var(--fg-3);">/ </span>full stack engineer
+    <a href={homeHref}><strong>Pedro Mansan</strong></a> <span style="color: var(--fg-3);">/ </span>{t(locale, "site.tagline")}
   </div>
   <nav>
     {links.map((link) => (
-      <a href={link.href} class={current === link.key ? "active" : ""}>{link.label}</a>
+      <a href={localizePath(link.path, locale)} class={current === link.key ? "active" : ""}>{t(locale, link.labelKey)}</a>
     ))}
+    <LanguageToggle />
     <ThemeToggle />
   </nav>
 </header>

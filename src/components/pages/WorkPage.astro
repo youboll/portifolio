@@ -1,0 +1,188 @@
+---
+import { getLocale, t } from "../../i18n/ui";
+
+const locale = getLocale(Astro.currentLocale);
+---
+<section class="hero" style="margin-top: 0;">
+  <h1>{t(locale, "work.heading")}</h1>
+  <div class="role">{t(locale, "work.role")}</div>
+</section>
+
+<section style="margin-top: 56px;" class="prose">
+  {locale === "en" && (
+    <>
+      <p>
+        Mindz is a multi-tenant SaaS for online courses and membership communities. Checkout,
+        video hosting, email marketing, affiliate tracking, comments, gamification — every
+        surface a creator needs to run a paid course, all wired into the same Django monolith.
+        I joined in 2022 and stayed until early 2026. What follows is the work I'm proudest of,
+        ordered by how technically interesting it ended up being.
+      </p>
+
+      <h2 id="agent-swarm">Migrating the design system with 40 Claude Code agents</h2>
+      <p>
+        The platform had been on Fomantic UI for years. The product team had decided to move
+        to Vuexy for a year and a half, but nobody had time to do the actual migration: 150+
+        pages, every one of them stitched together with Django templates and inline jQuery.
+        The estimate kept landing somewhere between three and five months of pair work.
+      </p>
+      <p>
+        I orchestrated it in a week with Claude Code. Ten lead agents, four sub-agents each,
+        forty agents working in parallel across isolated git worktrees. Each lead owned a slice
+        of the app — checkout, lessons, members, affiliate, etc. — and a hierarchical
+        <code>CLAUDE.md</code> kept all of them on the same component conventions.
+      </p>
+      <p>
+        The unglamorous numbers: about 82% of the PRs went through with light review. The
+        other 18% needed real human rewrites, almost always on the pages that mixed legacy
+        jQuery with Vue islands. Knowing where the orchestration would fail was more
+        important than how fast the easy cases moved.
+      </p>
+
+      <h2 id="abac">RBAC to ABAC</h2>
+      <p>
+        The authorization model was a flat role table that had outgrown itself. Course owners
+        had a different permission shape from co-owners, who were different from affiliates,
+        who were different from white-label resellers, who shared some-but-not-all permissions
+        with platform admins. Every new product surface forced a new role.
+      </p>
+      <p>
+        I led the refactor to attribute-based access control. Subjects, resources, actions,
+        and an environment dictionary — checked through a single policy engine instead of
+        hand-rolled per-view <code>if user.role == ...</code> branches. Migrating without
+        breaking anyone meant running ABAC in shadow mode against the existing RBAC checks
+        for two weeks before flipping the switch. Zero authorization regressions in production.
+      </p>
+
+      <h2 id="multi-db-router">Multi-DB router for database-per-tenant</h2>
+      <p>
+        Mindz uses one MySQL database per tenant for blast-radius and compliance reasons.
+        That decision is great until a single user needs to log in once and switch between
+        multiple platforms they own or co-manage. I built the Django database router and the
+        session-level tenant context that makes the switch invisible to the application code.
+      </p>
+      <p>
+        Most of the difficulty was in the unglamorous edges: cross-DB ORM joins (don't),
+        migrations across N databases without taking down the platform, and keeping the test
+        suite honest with factories that respect the active connection.
+      </p>
+
+      <h2 id="oauth2-server">Server-side OAuth2</h2>
+      <p>
+        Customers embed the course player as an iframe inside their own apps. That meant we
+        had to be the OAuth2 <em>server</em>, not just a client — issuing tokens, rotating
+        client credentials without locking customers out, and keeping the audit trail clean
+        enough that a legal review could trace any token back to the request that issued it.
+      </p>
+
+      <h2 id="other">Smaller things I'm still proud of</h2>
+      <p>
+        A new version of the platform's private API; a library of reusable Vue components
+        that the front-end team adopted as the default; systematic N+1 hunts that took the
+        slowest dashboards from twelve seconds to under a second; a custom n8n node that
+        lets non-engineers wire Mindz events into the rest of their stack without me being
+        in the loop.
+      </p>
+
+      <h2 id="frutap">Before Mindz: Frutap, age 17</h2>
+      <p>
+        My first job was as a Jovem Aprendiz in the administrative wing of a fruit
+        distribution company. I was supposed to file invoices. Instead, I taught myself
+        enough Python to build a Naive Bayes classifier that did the categorization for me
+        — and with better accuracy than the spreadsheet I was replacing. They moved me to
+        the technical side and I never looked back.
+      </p>
+    </>
+  )}
+
+  {locale === "pt-br" && (
+    <>
+      <p>
+        A Mindz é um SaaS multi-tenant para cursos online e comunidades de membros. Checkout,
+        hospedagem de vídeo, e-mail marketing, rastreamento de afiliados, comentários,
+        gamificação — toda superfície que um criador precisa para rodar um curso pago,
+        tudo dentro do mesmo monolito Django. Entrei em 2022 e fiquei até o início de 2026.
+        O que segue é o trabalho do qual mais me orgulho, ordenado pelo grau de interesse
+        técnico que acabou tendo.
+      </p>
+
+      <h2 id="agent-swarm">Migrando o design system com 40 agentes Claude Code</h2>
+      <p>
+        A plataforma rodava em Fomantic UI havia anos. O time de produto havia decidido migrar
+        para Vuexy fazia um ano e meio, mas ninguém tinha tempo de tocar a migração de fato:
+        mais de 150 páginas, cada uma costurada com templates Django e jQuery inline.
+        A estimativa sempre caía em algo entre três e cinco meses de trabalho em par.
+      </p>
+      <p>
+        Orquestrei tudo em uma semana com o Claude Code. Dez agentes líderes, quatro
+        sub-agentes cada um, quarenta agentes em paralelo em git worktrees isolados. Cada
+        líder cuidava de uma fatia do app — checkout, aulas, membros, afiliados etc. — e um
+        <code>CLAUDE.md</code> hierárquico mantinha todos alinhados com as mesmas convenções
+        de componentes.
+      </p>
+      <p>
+        Os números menos glamourosos: cerca de 82% dos PRs entraram com revisão leve. Os
+        outros 18% precisaram de reescrita humana de verdade, quase sempre nas páginas que
+        misturavam jQuery legado com ilhas Vue. Saber onde a orquestração iria falhar foi
+        mais importante do que a velocidade nos casos fáceis.
+      </p>
+
+      <h2 id="abac">De RBAC para ABAC</h2>
+      <p>
+        O modelo de autorização era uma tabela de papéis plana que tinha crescido além do que
+        suportava. Donos de curso tinham um formato de permissão diferente de coproprietários,
+        que eram diferentes de afiliados, que eram diferentes de revendedores white-label, que
+        compartilhavam algumas-mas-não-todas as permissões com administradores da plataforma.
+        Cada nova superfície de produto forçava a criação de um papel novo.
+      </p>
+      <p>
+        Liderei a refatoração para controle de acesso baseado em atributos. Sujeitos, recursos,
+        ações e um dicionário de ambiente — checados por um único motor de política em vez de
+        ramos <code>if user.role == ...</code> espalhados por view. Migrar sem quebrar ninguém
+        significou rodar o ABAC em modo shadow contra as checagens RBAC existentes por duas
+        semanas antes de virar a chave. Zero regressões de autorização em produção.
+      </p>
+
+      <h2 id="multi-db-router">Roteador multi-DB para banco-por-tenant</h2>
+      <p>
+        A Mindz usa um banco MySQL por tenant por questões de raio de impacto e compliance.
+        Essa decisão é ótima até um usuário precisar entrar uma única vez e trocar entre
+        várias plataformas que ele possui ou cogerencia. Construí o roteador de banco do
+        Django e o contexto de tenant em nível de sessão que torna a troca invisível para o
+        código da aplicação.
+      </p>
+      <p>
+        A maior parte da dificuldade ficou nos cantos pouco glamourosos: joins ORM
+        cross-DB (não faça), migrations em N bancos sem derrubar a plataforma, e manter a
+        suíte de testes honesta com factories que respeitam a conexão ativa.
+      </p>
+
+      <h2 id="oauth2-server">OAuth2 server-side</h2>
+      <p>
+        Clientes embedam o player de cursos como iframe dentro dos próprios apps. Isso
+        significou que precisávamos ser o <em>servidor</em> OAuth2, não só cliente — emitindo
+        tokens, rotacionando credenciais sem trancar clientes do lado de fora, e mantendo a
+        trilha de auditoria limpa o suficiente para uma revisão jurídica conseguir rastrear
+        qualquer token até a requisição que o emitiu.
+      </p>
+
+      <h2 id="other">Coisas menores das quais ainda me orgulho</h2>
+      <p>
+        Uma nova versão da API privada da plataforma; uma biblioteca de componentes Vue
+        reutilizáveis que o time de front-end adotou como padrão; caçadas sistemáticas a N+1
+        que levaram os dashboards mais lentos de doze segundos para menos de um; um nó
+        customizado de n8n que permite que pessoas não-engenheiras conectem eventos da Mindz
+        ao resto do stack sem depender de mim.
+      </p>
+
+      <h2 id="frutap">Antes da Mindz: Frutap, aos 17</h2>
+      <p>
+        Meu primeiro trabalho foi como Jovem Aprendiz na ala administrativa de uma
+        distribuidora de frutas. Era para arquivar notas fiscais. Em vez disso, aprendi
+        Python o suficiente para construir um classificador Naive Bayes que fazia a
+        categorização por mim — e com mais precisão que a planilha que eu estava substituindo.
+        Eles me moveram para o lado técnico e nunca mais olhei para trás.
+      </p>
+    </>
+  )}
+</section>

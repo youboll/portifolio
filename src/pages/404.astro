@@ -1,11 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import NotFoundPage from "../components/pages/NotFoundPage.astro";
+import { getLocale, t } from "../i18n/ui";
+
+const locale = getLocale(Astro.currentLocale);
 ---
-<Layout title="Not found — Pedro Mansan" description="This page doesn't exist.">
-  <section class="not-found">
-    <div class="code mono">404</div>
-    <h1>This page doesn't exist.</h1>
-    <p>It might have been moved, or the link might be wrong.</p>
-    <p><a href="/">← Back to home</a></p>
-  </section>
+<Layout
+  title={t(locale, "404.title")}
+  description={t(locale, "404.description")}
+>
+  <NotFoundPage />
 </Layout>

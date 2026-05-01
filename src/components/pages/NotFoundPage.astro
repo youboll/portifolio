@@ -1,0 +1,12 @@
+---
+import { getLocale, t, localizePath } from "../../i18n/ui";
+
+const locale = getLocale(Astro.currentLocale);
+const homeHref = localizePath("/", locale);
+---
+<section class="not-found">
+  <div class="code mono">404</div>
+  <h1>{t(locale, "404.heading")}</h1>
+  <p>{t(locale, "404.body")}</p>
+  <p><a href={homeHref}>{t(locale, "404.back")}</a></p>
+</section>

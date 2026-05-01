@@ -2,6 +2,7 @@
 import "../styles/globals.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import { getLocale, t, htmlLang, localizePath } from "../i18n/ui";
 
 interface Props {
   title?: string;
@@ -10,24 +11,33 @@ interface Props {
   ogImage?: string;
 }
 
+const locale = getLocale(Astro.currentLocale);
+
 const {
-  title = "Pedro Mansan — Full Stack Engineer (Python/Django, Vue)",
-  description = "Full stack developer working on multi-tenant SaaS — Python/Django on the backend, Vue on the frontend. Based in Brazil.",
+  title = t(locale, "site.defaultTitle"),
+  description = t(locale, "site.defaultDescription"),
   current = "",
   ogImage = "/og-default.svg",
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://pedro.mansan.dev").toString();
-const ogImageUrl = new URL(ogImage, Astro.site ?? "https://pedro.mansan.dev").toString();
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://mansan.dev").toString();
+const ogImageUrl = new URL(ogImage, Astro.site ?? "https://mansan.dev").toString();
+
+const altLocale = locale === "en" ? "pt-br" : "en";
+const altPath = localizePath(Astro.url.pathname, altLocale);
+const altUrl = new URL(altPath, Astro.site ?? "https://mansan.dev").toString();
 ---
 <!doctype html>
-<html lang="en">
+<html lang={htmlLang(locale)}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang={htmlLang(locale)} href={canonical} />
+  <link rel="alternate" hreflang={altLocale === "pt-br" ? "pt-BR" : "en"} href={altUrl} />
+  <link rel="alternate" hreflang="x-default" href={new URL(localizePath(Astro.url.pathname, "en"), Astro.site ?? "https://mansan.dev").toString()} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="alternate" type="application/rss+xml" title="Pedro Mansan — Writing" href="/rss.xml" />
   <meta name="generator" content={Astro.generator} />
@@ -37,6 +47,7 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? "https://pedro.mansan.dev").to
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:locale" content={locale === "pt-br" ? "pt_BR" : "en_US"} />
   <meta property="og:site_name" content="Pedro Mansan" />
 
   <meta name="twitter:card" content="summary_large_image" />

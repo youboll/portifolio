@@ -53,25 +53,25 @@ He is currently pursuing a B.Sc. in Computer Science at UTFPR (Federal Universit
 
 ## Pages
 
-- [About](https://pedro.mansan.dev/): Short bio and contact.
-- [Work](https://pedro.mansan.dev/work): Professional experience in full prose.
-- [Writing](https://pedro.mansan.dev/writing): Technical posts on backend architecture and AI-assisted development.
-- [Uses](https://pedro.mansan.dev/uses): Tools and stack in daily use.
-- [Now](https://pedro.mansan.dev/now): Current focus, updated monthly.
+- [About](https://mansan.dev/): Short bio and contact.
+- [Work](https://mansan.dev/work): Professional experience in full prose.
+- [Writing](https://mansan.dev/writing): Technical posts on backend architecture and AI-assisted development.
+- [Uses](https://mansan.dev/uses): Tools and stack in daily use.
+- [Now](https://mansan.dev/now): Current focus, updated monthly.
 
 ## Writing
 
-- [Orchestrating 40 Claude Code agents to migrate 150 pages in one week](https://pedro.mansan.dev/writing/orchestrating-40-agents): How nested agent orchestration parallelized a months-long design system migration into a single week.
+- [Orchestrating 40 Claude Code agents to migrate 150 pages in one week](https://mansan.dev/writing/orchestrating-40-agents): How nested agent orchestration parallelized a months-long design system migration into a single week.
 
 ## Resume
 
-- [Resume (English, PDF)](https://pedro.mansan.dev/resume.pdf)
-- [Currículo (Português, PDF)](https://pedro.mansan.dev/curriculo.pdf)
+- [Resume (English, PDF)](https://mansan.dev/resume.pdf)
+- [Currículo (Português, PDF)](https://mansan.dev/curriculo.pdf)
 
 ## Contact
 
 - Email: pedro.ciclobrasil@gmail.com
-- LinkedIn: https://linkedin.com/in/pedro-henrique-4047891b5
+- LinkedIn: https://linkedin.com/in/pedro-henrique-jesus-mansan-4047891b5
 `;
 
 export async function GET() {

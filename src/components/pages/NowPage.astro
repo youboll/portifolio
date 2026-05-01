@@ -1,0 +1,63 @@
+---
+import { getLocale, t, dateLocale, localizePath } from "../../i18n/ui";
+
+const locale = getLocale(Astro.currentLocale);
+const lastUpdated = new Date();
+const fmt = new Intl.DateTimeFormat(dateLocale(locale), { month: "long", day: "numeric", year: "numeric" });
+const writingHref = localizePath("/writing/", locale);
+---
+<section class="hero" style="margin-top: 0;">
+  <h1>{t(locale, "now.heading")}</h1>
+  <div class="role">{t(locale, "now.role")}</div>
+</section>
+
+<section class="prose" style="margin-top: 56px;">
+  {locale === "en" && (
+    <>
+      <p>
+        I'm in the third semester of Computer Science at UTFPR (Marechal Cândido
+        Rondon campus), based in Santa Helena, Paraná. Most evenings end with a
+        problem set or a system design exercise.
+      </p>
+      <p>
+        Looking for a full stack mid-level role, remote, US/EU teams. The kind of
+        product where the interesting problems are in the database and the auth
+        layer rather than the brand color.
+      </p>
+      <p>
+        Writing up a few of the systems I built at Mindz over the last four years —
+        see <a href={writingHref}>/writing</a> for what's in progress. Refining spoken
+        English for technical interviews on the side.
+      </p>
+    </>
+  )}
+
+  {locale === "pt-br" && (
+    <>
+      <p>
+        Estou no terceiro semestre de Ciência da Computação na UTFPR (campus
+        Marechal Cândido Rondon), morando em Santa Helena, Paraná. A maioria das
+        noites termina com uma lista de exercícios ou um exercício de system
+        design.
+      </p>
+      <p>
+        Procurando uma vaga de full stack pleno, remota, em times dos EUA ou Europa.
+        Aquele tipo de produto em que os problemas interessantes estão no banco de
+        dados e na camada de autenticação, não na cor da marca.
+      </p>
+      <p>
+        Escrevendo sobre alguns dos sistemas que construí na Mindz nos últimos quatro
+        anos — veja <a href={writingHref}>/blog</a> para o que está em andamento.
+        Refinando inglês falado para entrevistas técnicas em paralelo.
+      </p>
+    </>
+  )}
+
+  <p class="muted" style="font-family: var(--font-mono); font-size: 12px; margin-top: 32px;">
+    {t(locale, "now.lastUpdated")} {fmt.format(lastUpdated)}
+  </p>
+
+  <p class="muted" style="font-family: var(--font-mono); font-size: 12px;">
+    {t(locale, "now.inspired.before")}<a href="https://nownownow.com" target="_blank" rel="noopener">nownownow.com</a>{t(locale, "now.inspired.after")}
+  </p>
+</section>
