@@ -1,3 +1,5 @@
 name = "still-morning-71be"
 compatibility_date = "2026-04-30"
-pages_build_output_dir = "./dist"
+
+[assets]
+directory = "./dist"
